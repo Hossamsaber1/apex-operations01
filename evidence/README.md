@@ -1,6 +1,8 @@
-# Evidence collection — DO NOT fabricate
+# Evidence index
 
-Populate this directory only with actual candidate-generated screenshots or logs:
+Current verified evidence: [2026-10-30 release, persistence, rollback, incident and CI record](verified-demo-2026-10-30.md). This includes observed output excerpts, reproduction commands and limitations. Execution assistance is disclosed in [AI assistance](../docs/ai-usage.md). Screenshots have not been newly captured.
+
+Use this directory for actual execution screenshots or logs:
 
 1. `local-tests.txt`: `npm run check 2>&1 | tee evidence/local-tests.txt` (check exit status separately; use `set -o pipefail`).
 2. `ci-success.png`: screenshot of successful GitHub Actions run with all jobs green.
@@ -12,4 +14,4 @@ Populate this directory only with actual candidate-generated screenshots or logs
 
 Before submission, remove any secrets, tokens, usernames, paths containing personal data, or private repository details from screenshots/logs. If a check fails, document it honestly; never create fake success evidence.
 
-Note: assistant execution environment, not candidate WSL; Docker and GitHub CI unverified.
+Historical files predate the current verification. Refer to the dated record above for the latest Docker Desktop and GitHub CI results. Candidate reproduction for the live review is still pending.

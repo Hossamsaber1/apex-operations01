@@ -1,5 +1,7 @@
-# AI assistance disclosure — candidate to review and personalize
+# AI assistance
 
-AI assistance was used to draft the application code, Dockerfile, Compose configuration, CI workflow, test cases, shell scripts, documentation and architecture outline. The candidate must personally review, execute, validate and explain the submitted work, correct any defects discovered, and record real test/deployment evidence. Do not claim independent authorship of AI-generated components. Record any additional AI uses or manual modifications before submission.
+AI tools were used as a development aid for implementation drafts, configuration review, troubleshooting and documentation. This included assistance with the API, container and Compose setup, CI workflow, tests and release scripts.
 
-**Candidate validation status:** not yet verified on the candidate's WSL/Docker Desktop or GitHub Actions; update after actual execution. No evidence of production deployment is claimed.
+Specific support during validation included diagnosing Trivy findings in unused package managers, updating the Dockerfile and GitHub Actions, running local checks and the release/rollback and dependency-outage drills, and recording the observed results. The CI fix was committed and pushed with candidate approval; the linked GitHub run passed.
+
+The evidence identifies the checks performed with AI assistance. Personal review and reproduction by the candidate remain part of preparation for the live assessment. No production or paid-cloud deployment was performed.
