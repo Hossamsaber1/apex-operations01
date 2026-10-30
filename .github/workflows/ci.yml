@@ -30,7 +30,7 @@ jobs:
       - name: Check image runs as non-root
         run: test "$(docker image inspect apex-operations:ci-${{ github.sha }} --format '{{.Config.User}}')" = node
       - name: Scan image (Trivy)
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: apex-operations:ci-${{ github.sha }}
           format: table
