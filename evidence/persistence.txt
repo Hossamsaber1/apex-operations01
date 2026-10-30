@@ -1,0 +1,11 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   195    0   195    0     0    868      0 --:--:-- --:--:-- --:--:--   866
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+Date: Fri, 30 Oct 2026 17:46:10 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{"tasks":[{"id":"1c9b87a3-5e82-4b77-b21e-c481391f2fa1","title":"DevOps Assessment Task","done":false},{"id":"e89fa6b9-655d-4b28-ba28-0deddca7e25b","title":"DevOps Assessment Task","done":false}]}

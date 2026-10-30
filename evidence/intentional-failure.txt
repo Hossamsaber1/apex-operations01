@@ -1,0 +1,101 @@
+
+> apex-operations@1.0.0 check
+> npm run lint && npm test
+
+
+> apex-operations@1.0.0 lint
+> node --check src/api.js && node --check src/store.js && node --check src/lib.js && node --check tests/*.test.js
+
+
+> apex-operations@1.0.0 test
+> node --test tests/*.test.js
+
+TAP version 13
+# {"timestamp":"2026-10-30T17:20:32.358Z","level":"info","event":"http_request","request_id":"e7fb3ef5-f930-45b3-9732-699a6e772ddb","method":"GET","path":"/api/health","status":200,"duration_ms":2}
+# Subtest: health returns 200 and version
+ok 1 - health returns 200 and version
+  ---
+  duration_ms: 119.541211
+  type: 'test'
+  ...
+# {"timestamp":"2026-10-30T17:20:32.405Z","level":"info","event":"http_request","request_id":"70fc79b5-a44f-42a3-8404-f0cef33f5da5","method":"GET","path":"/api/ready","status":200,"duration_ms":11}
+# Subtest: ready returns 200 with available dependency
+ok 2 - ready returns 200 with available dependency
+  ---
+  duration_ms: 27.933124
+  type: 'test'
+  ...
+# {"timestamp":"2026-10-30T17:20:32.418Z","level":"error","event":"dependency_unavailable","error":"connect ECONNREFUSED 127.0.0.1:1"}
+# {"timestamp":"2026-10-30T17:20:32.419Z","level":"info","event":"http_request","request_id":"4bd3671d-7fa8-4603-a38e-d1f7ebd46c08","method":"GET","path":"/api/ready","status":503,"duration_ms":3}
+# Subtest: ready returns 503 without dependency
+ok 3 - ready returns 503 without dependency
+  ---
+  duration_ms: 16.57445
+  type: 'test'
+  ...
+# {"timestamp":"2026-10-30T17:20:32.447Z","level":"info","event":"http_request","request_id":"e10e1560-a253-4d5a-94b1-87f2b02b3ef7","method":"GET","path":"/api/tasks","status":200,"duration_ms":5}
+# Subtest: tasks initially empty
+ok 4 - tasks initially empty
+  ---
+  duration_ms: 27.608883
+  type: 'test'
+  ...
+# {"timestamp":"2026-10-30T17:20:32.480Z","level":"info","event":"http_request","request_id":"8328f1ac-a375-40e0-9df0-6f063ccc3f9d","method":"POST","path":"/api/tasks","status":201,"duration_ms":7}
+# {"timestamp":"2026-10-30T17:20:32.487Z","level":"info","event":"http_request","request_id":"12399e7e-33ae-437a-9309-f820f6dbfb57","method":"GET","path":"/api/tasks","status":200,"duration_ms":2}
+# Subtest: POST creates task and GET returns it
+ok 5 - POST creates task and GET returns it
+  ---
+  duration_ms: 39.323902
+  type: 'test'
+  ...
+# {"timestamp":"2026-10-30T17:20:32.499Z","level":"info","event":"http_request","request_id":"7a763dc8-608d-44cb-9f40-acccbf61948e","method":"POST","path":"/api/tasks","status":400,"duration_ms":0}
+# Subtest: rejects invalid task title
+ok 6 - rejects invalid task title
+  ---
+  duration_ms: 9.154588
+  type: 'test'
+  ...
+# {"timestamp":"2026-10-30T17:20:32.510Z","level":"info","event":"http_request","request_id":"64804d1c-b197-4298-a5bd-441602c091ff","method":"GET","path":"/missing","status":404,"duration_ms":0}
+# Subtest: unknown route returns 404
+ok 7 - unknown route returns 404
+  ---
+  duration_ms: 11.231757
+  type: 'test'
+  ...
+# {"timestamp":"2026-10-30T17:20:32.526Z","level":"info","event":"http_request","request_id":"7b0cff31-78ad-4d78-ab51-484f605e505b","method":"POST","path":"/api/tasks","status":201,"duration_ms":4}
+# Subtest: store persists data across restart
+ok 8 - store persists data across restart
+  ---
+  duration_ms: 16.713469
+  type: 'test'
+  ...
+# Subtest: intentional CI failure
+not ok 9 - intentional CI failure
+  ---
+  duration_ms: 2.110274
+  type: 'test'
+  location: '/app/tests/intentional-failure.test.js:1:36'
+  failureType: 'testCodeFailure'
+  error: 'Intentional failure for assessment'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    TestContext.<anonymous> (/app/tests/intentional-failure.test.js:1:81)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 8
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 504.138314
+npm notice
+npm notice New major version of npm available! 10.9.9 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice

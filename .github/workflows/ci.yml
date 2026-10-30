@@ -1,0 +1,48 @@
+name: Apex CI and Release Gate
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies (no external packages)
+        run: npm install --ignore-scripts --package-lock-only && npm ci --ignore-scripts
+      - name: Lint / syntax
+        run: npm run lint
+      - name: Eight automated tests
+        run: npm test
+      - name: Dependency audit
+        run: npm audit --audit-level=high
+  image:
+    needs: checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build versioned image
+        run: docker build -t apex-operations:ci-${{ github.sha }} .
+      - name: Check image runs as non-root
+        run: test "$(docker image inspect apex-operations:ci-${{ github.sha }} --format '{{.Config.User}}')" = node
+      - name: Scan image (Trivy)
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          image-ref: apex-operations:ci-${{ github.sha }}
+          format: table
+          exit-code: '1'
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+  release-gate:
+    needs: [checks, image]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate deployment configuration
+        run: APP_VERSION=v1 docker compose config --quiet
+      - name: Release approval gate passed (no remote deploy)
+        run: echo 'CI gate passed; local deployment requires running scripts/deploy.sh manually.'

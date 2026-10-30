@@ -1,0 +1,45 @@
+name: apex-operations
+services:
+  api:
+    image: apex-operations:${APP_VERSION:-v1}
+    build: .
+    environment:
+      PORT: "3000"
+      STORE_URL: http://store:4000
+      APP_VERSION: ${APP_VERSION:-v1}
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      store:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:3000/api/ready',r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    logging: {driver: json-file, options: {max-size: "10m", max-file: "3"}}
+  store:
+    image: apex-operations:${APP_VERSION:-v1}
+    command: ["node", "src/store.js"]
+    environment:
+      STORE_PORT: "4000"
+      DATA_FILE: /data/tasks.json
+    volumes:
+      - task_data:/data
+    user: "1000:1000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:4000/health',r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    logging: {driver: json-file, options: {max-size: "10m", max-file: "3"}}
+volumes:
+  task_data: {}

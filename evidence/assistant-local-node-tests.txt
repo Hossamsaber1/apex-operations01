@@ -1,0 +1,80 @@
+
+> apex-operations@1.0.0 check
+> npm run lint && npm test
+
+
+> apex-operations@1.0.0 lint
+> node --check src/api.js && node --check src/store.js && node --check src/lib.js && node --check tests/*.test.js
+
+
+> apex-operations@1.0.0 test
+> node --test tests/*.test.js
+
+TAP version 13
+# {"timestamp":"2026-10-30T16:24:02.410Z","level":"info","event":"http_request","request_id":"d6e5978c-1c1d-4d32-b1c8-07ea3c194ec2","method":"GET","path":"/api/health","status":200,"duration_ms":2}
+# Subtest: health returns 200 and version
+ok 1 - health returns 200 and version
+  ---
+  duration_ms: 50.242706
+  type: 'test'
+  ...
+# {"timestamp":"2026-10-30T16:24:02.434Z","level":"info","event":"http_request","request_id":"0c21cddc-c8a1-40bb-a6b9-8a32f5afe9a8","method":"GET","path":"/api/ready","status":200,"duration_ms":5}
+# Subtest: ready returns 200 with available dependency
+ok 2 - ready returns 200 with available dependency
+  ---
+  duration_ms: 13.43086
+  type: 'test'
+  ...
+# {"timestamp":"2026-10-30T16:24:02.440Z","level":"error","event":"dependency_unavailable","error":"connect ECONNREFUSED 127.0.0.1:1"}
+# {"timestamp":"2026-10-30T16:24:02.440Z","level":"info","event":"http_request","request_id":"68c10be7-7a4e-4219-8ba2-924b19735574","method":"GET","path":"/api/ready","status":503,"duration_ms":1}
+# Subtest: ready returns 503 without dependency
+ok 3 - ready returns 503 without dependency
+  ---
+  duration_ms: 7.035304
+  type: 'test'
+  ...
+# {"timestamp":"2026-10-30T16:24:02.450Z","level":"info","event":"http_request","request_id":"c3394ee0-06ef-41a1-8419-4f474ff49538","method":"GET","path":"/api/tasks","status":200,"duration_ms":2}
+# Subtest: tasks initially empty
+ok 4 - tasks initially empty
+  ---
+  duration_ms: 9.630353
+  type: 'test'
+  ...
+# {"timestamp":"2026-10-30T16:24:02.463Z","level":"info","event":"http_request","request_id":"604892f7-decc-4f07-bc2c-83fc1b189bb9","method":"POST","path":"/api/tasks","status":201,"duration_ms":3}
+# {"timestamp":"2026-10-30T16:24:02.466Z","level":"info","event":"http_request","request_id":"1f2f51e9-6500-4fb0-8fbc-5c2624a970b6","method":"GET","path":"/api/tasks","status":200,"duration_ms":1}
+# Subtest: POST creates task and GET returns it
+ok 5 - POST creates task and GET returns it
+  ---
+  duration_ms: 17.567535
+  type: 'test'
+  ...
+# {"timestamp":"2026-10-30T16:24:02.473Z","level":"info","event":"http_request","request_id":"e51a601c-f9bc-46fd-b922-4b53f0e21f64","method":"POST","path":"/api/tasks","status":400,"duration_ms":0}
+# Subtest: rejects invalid task title
+ok 6 - rejects invalid task title
+  ---
+  duration_ms: 4.944283
+  type: 'test'
+  ...
+# {"timestamp":"2026-10-30T16:24:02.477Z","level":"info","event":"http_request","request_id":"0d08cd2c-8473-4f40-ae16-97ef5be51d3e","method":"GET","path":"/missing","status":404,"duration_ms":0}
+# Subtest: unknown route returns 404
+ok 7 - unknown route returns 404
+  ---
+  duration_ms: 3.646859
+  type: 'test'
+  ...
+# {"timestamp":"2026-10-30T16:24:02.484Z","level":"info","event":"http_request","request_id":"32a223a8-958c-453d-82d7-af86ae9dfd91","method":"POST","path":"/api/tasks","status":201,"duration_ms":1}
+# Subtest: store persists data across restart
+ok 8 - store persists data across restart
+  ---
+  duration_ms: 7.832986
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 177.814024
