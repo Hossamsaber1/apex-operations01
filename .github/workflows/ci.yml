@@ -6,12 +6,13 @@ permissions:
   contents: read
 jobs:
   checks:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: '22'
+          package-manager-cache: false
       - name: Install dependencies (no external packages)
         run: npm install --ignore-scripts --package-lock-only && npm ci --ignore-scripts
       - name: Lint / syntax
@@ -22,9 +23,9 @@ jobs:
         run: npm audit --audit-level=high
   image:
     needs: checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build versioned image
         run: docker build -t apex-operations:ci-${{ github.sha }} .
       - name: Check image runs as non-root
@@ -39,9 +40,9 @@ jobs:
           ignore-unfixed: true
   release-gate:
     needs: [checks, image]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Validate deployment configuration
         run: APP_VERSION=v1 docker compose config --quiet
       - name: Release approval gate passed (no remote deploy)
